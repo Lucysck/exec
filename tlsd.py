@@ -20,8 +20,8 @@ subprocess.run(f'git clone https://github.com/Lucysck/test1.git {params["sd_dir"
 
 def task1():
  start_time = time.time()
- #subprocess.run(f'rm {params["sd_dir"]}/models', shell=True)
- #subprocess.run(f'rm {params["sd_dir"]}/extensions', shell=True)
+ subprocess.run(f'rm {params["sd_dir"]}/models', shell=True)
+ subprocess.run(f'rm {params["sd_dir"]}/extensions', shell=True)
  #subprocess.run(f'cp -r 1 /content/drive/MyDrive/sd/extensions {params["sd_dir"]/extensions}', shell=True)
  #subprocess.run(f'git clone https://github.com/DominikDoom/a1111-sd-webui-tagcomplete {params["sd_dir"]}/extensions/a1111-sd-webui-tagcomplete',shell=True)
  #subprocess.run(f'git clone https://github.com/Coyote-A/ultimate-upscale-for-automatic1111 {params["sd_dir"]}/extensions/ultimate-upscale',shell=True)
@@ -31,7 +31,7 @@ def task1():
  #subprocess.run(f'git clone https://github.com/zanllp/sd-webui-infinite-image-browsing {params["sd_dir"]}/extensions/sd-webui-infinite-image-browsing',shell=True)
  #subprocess.run(f'git clone https://github.com/BlafKing/sd-civitai-browser-plus {params["sd_dir"]}/extensions/sd-civitai-browser-plus',shell=True)
  subprocess.run(f'git clone https://github.com/camenduru/tunnels {params["sd_dir"]}/extensions/tunnels',shell=True)
- subprocess.run(f'cp -rf 1 /content/drive/MyDrive/sd/123/* {params["sd_dir"]}/extensions', shell=True)
+ 
 
  if os.path.exists(f'{params["sd_dir"]}/embeddings'):
   shutil.rmtree(f'{params["sd_dir"]}/embeddings')
