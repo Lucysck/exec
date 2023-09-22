@@ -31,7 +31,7 @@ def task1():
  #subprocess.run(f'git clone https://github.com/zanllp/sd-webui-infinite-image-browsing {params["sd_dir"]}/extensions/sd-webui-infinite-image-browsing',shell=True)
  #subprocess.run(f'git clone https://github.com/BlafKing/sd-civitai-browser-plus {params["sd_dir"]}/extensions/sd-civitai-browser-plus',shell=True)
  subprocess.run(f'git clone https://github.com/camenduru/tunnels {params["sd_dir"]}/extensions/tunnels',shell=True)
- 
+ subprocess.run(f'cp -r 1 /content/drive/MyDrive/sd/123/ {params["sd_dir"]}/extensions', shell=True)
 
  if os.path.exists(f'{params["sd_dir"]}/embeddings'):
   shutil.rmtree(f'{params["sd_dir"]}/embeddings')
@@ -41,8 +41,7 @@ def task1():
  print("\ntask1 spent:",end_time-start_time,"s")
 def task2():
  start_time=time.time()
- subprocess.run(f'cp -rf 1 /content/drive/MyDrive/sd/models {params["sd_dir"]}/models', shell=True)
- subprocess.run(f'cp -rf 1 /content/drive/MyDrive/sd/embeddings {params["sd_dir"]}/models', shell=True)
+ subprocess.run(f'cp -rf 1 /content/drive/MyDrive/sd/* {params["sd_dir"]}', shell=True)
  subprocess.run(f'aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/lokCX/4x-Ultrasharp/resolve/main/4x-UltraSharp.pth -d {params["sd_dir"]}/models/ESRGAN/ -o 4x-UltraSharp.pth',shell=True)
  subprocess.run(f'aria2c --console-log-level=error -c -x 16 -s 16 -k 1M https://huggingface.co/datasets/daasd/CN.csv/resolve/main/CN.csv -d {params["sd_dir"]}/extensions/a1111-sd-webui-tagcomplete/tags -o CN.csv',shell=True) 
  if(params['ckpt_url']):
@@ -99,7 +98,7 @@ with open(f'{params["sd_dir"]}/style.css', 'a') as cssFile:
       cssFile.write(css_content)
 
 
-full_precision_str = params['user_arguments'] + " --disable-safe-unpickle --xformers --enable-insecure-extension-access --opt-sub-quad-attention --opt-channelslast --api --port 60088 "
+full_precision_str = params['user_arguments'] + " --multiple --disable-safe-unpickle --xformers --enable-insecure-extension-access --opt-sub-quad-attention --opt-channelslast --api --port 60088 "
 #full_precision_str=" --lowram --disable-safe-unpickle  --disable-console-progressbars --xformers --enable-insecure-extension-access --precision full --no-half --no-half-vae --opt-sub-quad-attention --opt-channelslast --api"
 
 full_precision_str+=" --theme='dark'"
