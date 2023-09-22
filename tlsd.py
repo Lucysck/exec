@@ -20,7 +20,9 @@ subprocess.run(f'git clone https://github.com/Lucysck/test1.git {params["sd_dir"
 
 def task1():
  start_time = time.time()
- #subprocess.run(f'cp -rf 1 /content/drive/MyDrive/sd/* {params["sd_dir"]}', shell=True)
+ subprocess.run(f'rm {params["sd_dir"]}/models', shell=True)
+ subprocess.run(f'rm {params["sd_dir"]}/extensions', shell=True)
+ subprocess.run(f'cp -rf 1 /content/drive/MyDrive/sd/* {params["sd_dir"]}', shell=True)
  #subprocess.run(f'git clone https://github.com/DominikDoom/a1111-sd-webui-tagcomplete {params["sd_dir"]}/extensions/a1111-sd-webui-tagcomplete',shell=True)
  #subprocess.run(f'git clone https://github.com/Coyote-A/ultimate-upscale-for-automatic1111 {params["sd_dir"]}/extensions/ultimate-upscale',shell=True)
  #subprocess.run(f'git clone https://github.com/hako-mikan/sd-webui-lora-block-weight {params["sd_dir"]}/extensions/sd-webui-lora-block-weight',shell=True)
@@ -34,7 +36,6 @@ def task1():
   shutil.rmtree(f'{params["sd_dir"]}/embeddings')
  subprocess.run(f'git clone https://huggingface.co/nolanaatama/embeddings {params["sd_dir"]}/embeddings',shell=True)
 
- 
  end_time=time.time()
  print("\ntask1 spent:",end_time-start_time,"s")
 def task2():
