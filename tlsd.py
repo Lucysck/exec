@@ -14,7 +14,7 @@ for arg in sys.argv[1:]:
    key,value=key_value
    params[key]=value
 
-subprocess.run(f'git clone -b master --single-branch https://github.com/Lucysck/test1.git {params["sd_dir"]}',shell=True)
+subprocess.run(f'git clone https://github.com/Lucysck/test1.git {params["sd_dir"]}',shell=True)
 
 #subprocess.run(f'git clone -b master --single-branch https://github.com/anapnoe/stable-diffusion-webui-ux {params["sd_dir"]}',shell=True)
 
