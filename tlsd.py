@@ -70,7 +70,6 @@ def task4():
 def task5():
  start_time=time.time() 
  #subprocess.run("pip install xformers xformers==0.0.20",shell=True)
- subprocess.run(f'cp -rf 1 /content/drive/MyDrive/sd/* {params["sd_dir"]}', shell=True)
  subprocess.run("pip install -q xformers==0.0.20 triton==2.0.0 -U",shell=True) 
  end_time=time.time()
  print("\ntask5 spent:",end_time-start_time,"s")
